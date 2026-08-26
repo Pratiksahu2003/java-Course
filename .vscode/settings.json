@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "Quiz",
+        "22.08.2026",
+        "21.08.2026",
+        "23.08.2026"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
+}
