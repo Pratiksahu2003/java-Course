@@ -1,14 +1,26 @@
 package com.vedmint.www.springjdbc.Repository;
 import com.vedmint.www.springjdbc.Models.Student;
 import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.JdbcTemplate;
+import java.util.List;
+
 @Repository
 public class StudentRepository {
     
-    public void addStudent(Student student) {
-        System.out.println("Student added: " + student);
+    private JdbcTemplate jdbcTemplate;
+    
+    public StudentRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+    
+    
+    public void save(Student student) {
+        String sql = "INSERT INTO students (id, name, email) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, student.getId(), student.getName(), student.getEmail());
     }
 
-    public void getStudent(int id) {
-        System.out.println("Student retrieved: " + id);
+    public List<Student> getAll() {
+        String sql = "SELECT * FROM students";
+        return jdbcTemplate.query(sql, new StudentRowMapper());
     }
 }

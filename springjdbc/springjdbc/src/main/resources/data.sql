@@ -1,0 +1,1 @@
+insert into students (id, name, email) values (1, 'John Doe', 'john.doe@example.com');
