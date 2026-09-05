@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/master :: page('Application Submitted', ~{::section})}">
+<section>
+    <div class="success-card">
+        <div class="success-icon">✓</div>
+        <h1>Application Submitted!</h1>
+        <p th:if="${applicantName}">
+            Thank you, <strong th:text="${applicantName}">Applicant</strong>! Your application for
+            <strong th:text="${job.title}">Job Title</strong> at
+            <strong th:text="${job.company}">Company</strong> has been received.
+        </p>
+        <p th:unless="${applicantName}">
+            Your application for <strong th:text="${job.title}">Job Title</strong> has been received.
+        </p>
+        <p class="success-note">The hiring team will review your application and contact you if you're shortlisted.</p>
+        <div class="success-actions">
+            <a th:href="@{/}" class="btn btn-primary">Browse More Jobs</a>
+            <a th:href="@{/jobs/{id}(id=${job.id})}" class="btn btn-outline">View Job Details</a>
+        </div>
+    </div>
+</section>
+</html>

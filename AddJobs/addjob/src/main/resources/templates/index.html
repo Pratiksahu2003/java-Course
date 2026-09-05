@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/master :: page('Browse Jobs', ~{::section})}">
+<section>
+    <div class="page-header">
+        <div>
+            <h1>Open Positions</h1>
+            <p class="subtitle">Find your next opportunity and apply in minutes.</p>
+        </div>
+        <a th:href="@{/jobs/post}" class="btn btn-primary">+ Post a Job</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(jobs)}" class="empty-state">
+        <div class="empty-icon">💼</div>
+        <h2>No jobs posted yet</h2>
+        <p>Be the first to post a job opening!</p>
+        <a th:href="@{/jobs/post}" class="btn btn-primary">Post a Job</a>
+    </div>
+
+    <div class="job-grid" th:unless="${#lists.isEmpty(jobs)}">
+        <article class="job-card" th:each="job : ${jobs}">
+            <div class="job-card-header">
+                <span class="badge" th:text="${job.jobType.displayName}">Full Time</span>
+                <span class="job-date" th:text="${#temporals.format(job.postedAt, 'dd MMM yyyy')}">01 Jan 2026</span>
+            </div>
+            <h2 class="job-title">
+                <a th:href="@{/jobs/{id}(id=${job.id})}" th:text="${job.title}">Job Title</a>
+            </h2>
+            <p class="job-company" th:text="${job.company}">Company</p>
+            <div class="job-meta">
+                <span th:text="${job.location}">Location</span>
+                <span class="separator">·</span>
+                <span th:text="${job.salary}">Salary</span>
+            </div>
+            <p class="job-excerpt" th:text="${#strings.abbreviate(job.description, 120)}">Description...</p>
+            <div class="job-card-footer">
+                <a th:href="@{/jobs/{id}(id=${job.id})}" class="btn btn-outline btn-sm">View Details</a>
+                <a th:href="@{/jobs/{id}/apply(id=${job.id})}" class="btn btn-primary btn-sm">Apply Now</a>
+            </div>
+        </article>
+    </div>
+</section>
+</html>

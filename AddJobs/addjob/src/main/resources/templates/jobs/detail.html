@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/master :: page(${job.title}, ~{::section})}">
+<section>
+    <div class="breadcrumb">
+        <a th:href="@{/}">Jobs</a>
+        <span>/</span>
+        <span th:text="${job.title}">Job Title</span>
+    </div>
+
+    <div class="job-detail">
+        <div class="job-detail-main">
+            <div class="job-detail-header">
+                <span class="badge badge-lg" th:text="${job.jobType.displayName}">Full Time</span>
+                <h1 th:text="${job.title}">Job Title</h1>
+                <p class="job-company-lg" th:text="${job.company}">Company</p>
+                <div class="job-meta-lg">
+                    <span th:text="${job.location}">Location</span>
+                    <span class="separator">·</span>
+                    <span th:text="${job.salary}">Salary</span>
+                    <span class="separator">·</span>
+                    <span>Posted <span th:text="${#temporals.format(job.postedAt, 'dd MMM yyyy')}">date</span></span>
+                </div>
+            </div>
+
+            <div class="job-section">
+                <h2>About the Role</h2>
+                <p class="pre-wrap" th:text="${job.description}">Description</p>
+            </div>
+
+            <div class="job-section">
+                <h2>Requirements</h2>
+                <p class="pre-wrap" th:text="${job.requirements}">Requirements</p>
+            </div>
+        </div>
+
+        <aside class="job-detail-sidebar">
+            <div class="sidebar-card">
+                <h3>Ready to apply?</h3>
+                <p>Submit your application in just a few minutes.</p>
+                <a th:href="@{/jobs/{id}/apply(id=${job.id})}" class="btn btn-primary btn-block">Apply for this Job</a>
+                <p class="sidebar-note" th:text="${applicationCount} + ' application(s) received'">0 applications</p>
+            </div>
+            <a th:href="@{/}" class="btn btn-outline btn-block">← Back to all jobs</a>
+        </aside>
+    </div>
+</section>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page(pageTitle, pageContent)">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${pageTitle} + ' | AddJob'">AddJob</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<header th:replace="~{layout/fragments :: header}"></header>
+
+<main class="main-content">
+    <div class="container">
+        <div th:replace="~{layout/fragments :: alerts}"></div>
+        <div th:replace="${pageContent}">Page content goes here</div>
+    </div>
+</main>
+
+<footer th:replace="~{layout/fragments :: footer}"></footer>
+
+</body>
+</html>
