@@ -5,6 +5,7 @@ import com.vedmint.reat.Repository.ProductRepository;
 import com.vedmint.reat.Repository.UserRepository;
 import com.vedmint.reat.Dto.ProductDto;
 import com.vedmint.reat.Dto.CreateProductDto;
+import com.vedmint.reat.Dto.UpdateProductDto;
 import com.vedmint.reat.Exception.ResourceNotFoundException;
 import com.vedmint.reat.Model.Product;
 import com.vedmint.reat.Model.User;
@@ -33,20 +34,18 @@ public class ProductService {
         return ProductDto.fromEntity(productRepository.save(createProductDto.toEntity(user)));
     }
 
-    public ProductDto updateProduct(Long id, ProductDto productDto) {
+    public ProductDto updateProduct(Long id, UpdateProductDto updateProductDto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
 
-        product.setName(productDto.getName());
-        product.setDescription(productDto.getDescription());
-        product.setPrice(productDto.getPrice());
+        User user = userRepository.findById(updateProductDto.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "User not found with id: " + updateProductDto.getUserId()));
 
-        if (productDto.getUser() != null && productDto.getUser().getId() != null) {
-            User user = userRepository.findById(productDto.getUser().getId())
-                    .orElseThrow(() -> new ResourceNotFoundException(
-                            "User not found with id: " + productDto.getUser().getId()));
-            product.setUser(user);
-        }
+        product.setName(updateProductDto.getName());
+        product.setDescription(updateProductDto.getDescription());
+        product.setPrice(updateProductDto.getPrice());
+        product.setUser(user);
 
         return ProductDto.fromEntity(productRepository.save(product));
     }

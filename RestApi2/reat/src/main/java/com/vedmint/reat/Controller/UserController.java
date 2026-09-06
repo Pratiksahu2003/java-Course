@@ -48,11 +48,7 @@ public class UserController {
                 ApiResponse.success("User updated successfully", userService.updateUser(id, userDto)));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok(ApiResponse.success("User deleted successfully"));
-    }
+   
 
     @PatchMapping("/{id}/activate")
     public ResponseEntity<ApiResponse<UserDto>> activateUser(@PathVariable Long id) {
@@ -66,7 +62,7 @@ public class UserController {
                 ApiResponse.success("User deactivated successfully", userService.deactivateUser(id)));
     }
 
-    @PatchMapping("/{id}/soft-delete")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<UserDto>> softDeleteUser(@PathVariable Long id) {
         return ResponseEntity.ok(
                 ApiResponse.success("User soft deleted successfully", userService.softDeleteUser(id)));

@@ -1,9 +1,11 @@
 package com.vedmint.reat.Response;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
+@JsonPropertyOrder({ "success", "status", "message", "data", "timestamp" })
 public class ApiResponse<T> {
 
     private final boolean success;

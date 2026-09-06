@@ -1,5 +1,7 @@
 package com.vedmint.reat.Dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -9,6 +11,7 @@ import com.vedmint.reat.Model.User;
 
 @Getter
 @Setter
+@JsonPropertyOrder({ "id", "name", "email", "createdAt", "updatedAt", "deletedAt", "isActive" })
 public class UserDto {
 
     private Long id;
@@ -20,6 +23,7 @@ public class UserDto {
     @Email(message = "Email must be valid")
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

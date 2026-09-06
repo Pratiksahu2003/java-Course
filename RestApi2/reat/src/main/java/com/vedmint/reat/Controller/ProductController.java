@@ -3,6 +3,7 @@ package com.vedmint.reat.Controller;
 import java.util.List;
 import com.vedmint.reat.Dto.ProductDto;
 import com.vedmint.reat.Dto.CreateProductDto;
+import com.vedmint.reat.Dto.UpdateProductDto;
 import com.vedmint.reat.Response.ApiResponse;
 import com.vedmint.reat.Service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -43,9 +44,10 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<ProductDto>> updateProduct(@PathVariable Long id,
-            @Valid @RequestBody ProductDto productDto) {
+            @Valid @RequestBody UpdateProductDto updateProductDto) {
         return ResponseEntity.ok(
-                ApiResponse.success("Product updated successfully", productService.updateProduct(id, productDto)));
+                ApiResponse.success("Product updated successfully",
+                        productService.updateProduct(id, updateProductDto)));
     }
 
     @DeleteMapping("/{id}")
